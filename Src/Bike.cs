@@ -12,6 +12,8 @@ namespace LightBike.Src
         private Vector2 cellPos;
         private Vector2 speed;
 
+        private int initialSpeed;
+
         private Color colour;
 
         public Bike(Vector2 cellPos, Color colour, Vector2 speed)
@@ -19,6 +21,8 @@ namespace LightBike.Src
             this.cellPos = cellPos;
             this.speed = speed;
             this.colour = colour;
+
+            initialSpeed = (int)MathF.Max(speed.X, speed.Y);
         }
 
         public void Update(Grid grid)
@@ -30,8 +34,8 @@ namespace LightBike.Src
 
         public void RotateBike(int dir)
         {
-            speed.X = MathF.Cos(dir * MathF.PI / 2);
-            speed.Y = MathF.Sin(dir * MathF.PI / 2);
+            speed.X = initialSpeed * MathF.Cos(dir * MathF.PI / 2);
+            speed.Y = initialSpeed * MathF.Sin(dir * MathF.PI / 2);
         }
     }
 }

@@ -68,7 +68,7 @@ namespace LightBike.Src
 
         public void SetCell(int i, int j, CellMembers cell, Color colour)
         {
-            if ((i < cellNum && i >= 0) && (j < cellNum && j > 0))
+            if ((i < cellNum && i >= 0) && (j < cellNum && j >= 0))
             {
                 gridValues[i, j] = cell;
                 colours[i, j] = colour;
