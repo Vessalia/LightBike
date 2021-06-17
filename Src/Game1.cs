@@ -30,8 +30,8 @@ namespace LightBike.Src
             int cellNum = 32;
             grid = new Grid(cellNum);
 
-            player = new Bike(new Vector2(cellNum, cellNum) / 2 - new Vector2(1,1), new Vector2(10, 10), new Color(20, 120, 185));
-            enemy = new Bike(new Vector2(cellNum, cellNum) / 2 + new Vector2(1, 1), new Vector2(10, 10), new Color(205, 50, 50));
+            player = new Bike(new Vector2(cellNum, cellNum) / 2 - new Vector2(1,1), new Color(20, 120, 185));
+            enemy = new Bike(new Vector2(cellNum, cellNum) / 2 + new Vector2(1, 1), new Color(205, 50, 50));
 
             _graphics.PreferredBackBufferWidth = (int)Constants.Screen.X;
             _graphics.PreferredBackBufferHeight = (int)Constants.Screen.Y;
@@ -52,9 +52,11 @@ namespace LightBike.Src
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if(counter > 60)
+            if(counter > 10)
             {
                 player.Update(grid, new Vector2(1, 0));
+                enemy.Update(grid, new Vector2(-1,0));
+
                 counter = 0;
             }
             else
@@ -76,8 +78,6 @@ namespace LightBike.Src
             //enemy.Draw(_spriteBatch);
 
             grid.DrawGrid(_spriteBatch);
-
-            player.Draw(_spriteBatch, grid);
 
             // TODO: Add your drawing code here
 

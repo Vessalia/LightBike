@@ -16,6 +16,8 @@ namespace LightBike.Src
     {
         public CellMembers[,] gridValues;
 
+        public Color[,] colours;
+
         private int cellNum;
 
         public Grid(int cellNum)
@@ -32,12 +34,15 @@ namespace LightBike.Src
         {
             
             gridValues = new CellMembers[cellNum, cellNum];
+            colours = new Color[cellNum, cellNum];
 
             for (int i = 0; i < cellNum; i++)
             {
                 for (int j = 0; j < cellNum; j++)
                 {
-                    gridValues[i, j] = CellMembers.empty; 
+                    gridValues[i, j] = CellMembers.empty;
+
+                    colours[i, j] = Color.Transparent;
                 }
             }
         }
@@ -55,13 +60,23 @@ namespace LightBike.Src
                     Color colour = Color.White;
 
                     sb.DrawRectangle(screenPos.X, screenPos.Y, cellLen, cellLen, colour);
+
+                    sb.FillRectangle(screenPos.X, screenPos.Y, cellLen, cellLen, colours[i, j]);
                 }
             }
         }
 
-        public void SetCell(int i, int j, CellMembers cell)
+        public void SetCell(int i, int j, CellMembers cell, Color colour)
         {
-            gridValues[i, j] = cell;
+            if ((i < cellNum && i >= 0) && (j < cellNum && j > 0))
+            {
+                gridValues[i, j] = cell;
+                colours[i, j] = colour;
+            }
+            else
+            {
+
+            }
         }
 
         public int GetCellLen()
