@@ -14,6 +14,8 @@ namespace LightBike.Src
         Bike player;
         Bike enemy;
 
+        PlayerController playerController;
+
         Grid grid;
 
         int counter = 0;
@@ -30,8 +32,10 @@ namespace LightBike.Src
             int cellNum = 32;
             grid = new Grid(cellNum);
 
-            player = new Bike(new Vector2(cellNum, cellNum) / 2 - new Vector2(1,1), new Color(20, 120, 185));
-            enemy = new Bike(new Vector2(cellNum, cellNum) / 2 + new Vector2(1, 1), new Color(205, 50, 50));
+            player = new Bike(new Vector2(cellNum, cellNum) / 2 - new Vector2(1,1), new Color(20, 120, 185), new Vector2(1, 0));
+            enemy = new Bike(new Vector2(cellNum, cellNum) / 2 + new Vector2(1, 1), new Color(205, 50, 50), new Vector2(-1, 0));
+
+            playerController = new PlayerController(player);
 
             _graphics.PreferredBackBufferWidth = (int)Constants.Screen.X;
             _graphics.PreferredBackBufferHeight = (int)Constants.Screen.Y;
@@ -54,8 +58,9 @@ namespace LightBike.Src
                 Exit();
             if(counter > 10)
             {
-                player.Update(grid, new Vector2(1, 0));
-                enemy.Update(grid, new Vector2(-1,0));
+                playerController.HandleInput();
+                player.Update(grid);
+                enemy.Update(grid);
 
                 counter = 0;
             }
