@@ -20,8 +20,8 @@ namespace LightBike.Src
         public override void HandleInput()
         {
             input.Update();
-            if (input.IsKeyJustReleased(Keys.Left)) dir -= 1;
-            if (input.IsKeyJustReleased(Keys.Right)) dir += 1;
+            if (input.IsKeyJustPressed(Keys.Left)) dir -= 1;
+            if (input.IsKeyJustPressed(Keys.Right)) dir += 1;
             bike.RotateBike(dir);
         }
     }
