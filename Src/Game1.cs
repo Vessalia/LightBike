@@ -58,9 +58,11 @@ namespace LightBike.Src
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if(counter > 4)
+
+            playerController.HandleInput();
+
+            if (counter > 4)
             {
-                playerController.HandleInput();
                 player.Update(grid);
                 enemy.Update(grid);
 
