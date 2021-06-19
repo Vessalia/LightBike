@@ -34,8 +34,8 @@ namespace LightBike.Src
 
         public void RotateBike(int dir)
         {
-            speed.X = initialSpeed * MathF.Cos(dir * MathF.PI / 2);
-            speed.Y = initialSpeed * MathF.Sin(dir * MathF.PI / 2);
+            speed.X = (int) initialSpeed * MathF.Round(MathF.Cos(dir * MathF.PI / 2));
+            speed.Y = (int) initialSpeed * MathF.Round(MathF.Sin(dir * MathF.PI / 2));
         }
     }
 }

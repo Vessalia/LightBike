@@ -14,6 +14,7 @@ namespace LightBike.Src
         Bike player;
         Bike enemy;
 
+        Input input;
         PlayerController playerController;
 
         Grid grid;
@@ -35,7 +36,8 @@ namespace LightBike.Src
             player = new Bike(new Vector2(cellNum, cellNum) / 2 - new Vector2(1,1), new Color(20, 120, 185), new Vector2(1, 0));
             enemy = new Bike(new Vector2(cellNum, cellNum) / 2 + new Vector2(1, 1), new Color(205, 50, 50), new Vector2(-1, 0));
 
-            playerController = new PlayerController(player);
+            input = new Input();
+            playerController = new PlayerController(player, input);
 
             _graphics.PreferredBackBufferWidth = (int)Constants.Screen.X;
             _graphics.PreferredBackBufferHeight = (int)Constants.Screen.Y;
@@ -56,7 +58,7 @@ namespace LightBike.Src
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-            if(counter > 10)
+            if(counter > 4)
             {
                 playerController.HandleInput();
                 player.Update(grid);

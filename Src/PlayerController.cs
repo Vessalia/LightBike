@@ -8,16 +8,20 @@ namespace LightBike.Src
     class PlayerController : Controller
     {
         private int dir;
+        private Input input;
 
-        public PlayerController(Bike bike) : base(bike)
+        public PlayerController(Bike bike, Input input) : base(bike)
         {
+            this.input = input;
+
             dir = 0;
         }
 
         public override void HandleInput()
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Left)) dir -= 1;
-            if (Keyboard.GetState().IsKeyDown(Keys.Right)) dir += 1;
+            input.Update();
+            if (input.IsKeyJustReleased(Keys.Left)) dir -= 1;
+            if (input.IsKeyJustReleased(Keys.Right)) dir += 1;
             bike.RotateBike(dir);
         }
     }
