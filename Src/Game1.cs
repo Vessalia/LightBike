@@ -20,6 +20,7 @@ namespace LightBike.Src
         Grid grid;
 
         int counter = 0;
+        int indicator = 0;
 
         public Game1()
         {
@@ -59,14 +60,24 @@ namespace LightBike.Src
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            playerController.HandleInput();
+            var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-            if (counter > 4)
+            input.Update();
+
+            if (indicator == 0 && (input.IsKeyJustPressed(Keys.Left) || input.IsKeyJustPressed(Keys.Right)))
+            {
+                playerController.HandleInput();
+
+                indicator = 1;
+            }
+
+            if (counter > 40)
             {
                 player.Update(grid);
                 enemy.Update(grid);
 
                 counter = 0;
+                indicator = 0;
             }
             else
             {
