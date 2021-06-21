@@ -8,9 +8,9 @@ namespace LightBike.Src
     class PlayerController : Controller
     {
         private int dir;
-        private Input input;
+        private IInput input;
 
-        public PlayerController(Bike bike, Input input) : base(bike)
+        public PlayerController(Bike bike, IInput input) : base(bike)
         {
             this.input = input;
 

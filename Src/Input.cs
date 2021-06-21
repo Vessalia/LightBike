@@ -5,7 +5,7 @@ using System.Text;
 
 namespace LightBike.Src
 {
-    public class Input
+    public class Input : IInput
     {
         private KeyboardState prev_state;
         private KeyboardState curr_state;

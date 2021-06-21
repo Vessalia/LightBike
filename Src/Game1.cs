@@ -6,21 +6,15 @@ using System;
 
 namespace LightBike.Src
 {
-    public class Game1 : Game
+    public class Game1 : Game, IGameStateSwitcher
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private SpriteFont font1;
 
-        Bike player;
-        Bike enemy;
+        private GameState gameState;
 
-        Input input;
-        PlayerController playerController;
-
-        Grid grid;
-
-        int counter = 0;
-        int indicator = 0;
+        private Input input;
 
         public Game1()
         {
@@ -31,19 +25,13 @@ namespace LightBike.Src
 
         protected override void Initialize()
         {
-            int cellNum = 32;
-            grid = new Grid(cellNum);
-
-            player = new Bike(new Vector2(cellNum, cellNum) / 2 - new Vector2(1,1), new Color(20, 120, 185), new Vector2(1, 0));
-            enemy = new Bike(new Vector2(cellNum, cellNum) / 2 + new Vector2(1, 1), new Color(205, 50, 50), new Vector2(-1, 0));
-
-            input = new Input();
-            playerController = new PlayerController(player, input);
-
             _graphics.PreferredBackBufferWidth = (int)Constants.Screen.X;
             _graphics.PreferredBackBufferHeight = (int)Constants.Screen.Y;
             _graphics.ApplyChanges();
-            // TODO: Add your initialization logic here
+
+            input = new Input();
+
+            gameState = new MainMenuState(this, input);
 
             base.Initialize();
         }
@@ -52,7 +40,7 @@ namespace LightBike.Src
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            // TODO: use this.Content to load your game content here
+            font1 = Content.Load<SpriteFont>("Arial32");
         }
 
         protected override void Update(GameTime gameTime)
@@ -60,31 +48,17 @@ namespace LightBike.Src
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
-
             input.Update();
+            
+            gameState.HandleInput();
 
-            if (indicator == 0 && (input.IsKeyJustPressed(Keys.Left) || input.IsKeyJustPressed(Keys.Right)))
+            if (gameState == null)
             {
-                playerController.HandleInput();
-
-                indicator = 1;
+                Exit();
+                return;
             }
 
-            if (counter > 40)
-            {
-                player.Update(grid);
-                enemy.Update(grid);
-
-                counter = 0;
-                indicator = 0;
-            }
-            else
-            {
-                counter++;
-            }
-
-            // TODO: Add your update logic here
+            gameState.Update();
 
             base.Update(gameTime);
         }
@@ -95,15 +69,16 @@ namespace LightBike.Src
 
             _spriteBatch.Begin();
             
-            //enemy.Draw(_spriteBatch);
-
-            grid.DrawGrid(_spriteBatch);
-
-            // TODO: Add your drawing code here
+            gameState.DrawToScreen(_spriteBatch, font1);
 
             _spriteBatch.End();
 
             base.Draw(gameTime);
+        }
+
+        public void SetNextState(GameState gameState)
+        {
+            this.gameState = gameState;
         }
     }
 }

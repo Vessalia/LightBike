@@ -10,7 +10,8 @@ namespace LightBike.Src
     public class Bike
     {
         private Vector2 cellPos;
-        private Vector2 speed;
+
+        public Vector2 speed;
 
         private int initialSpeed;
 
@@ -27,7 +28,7 @@ namespace LightBike.Src
 
         public void Update(Grid grid)
         {
-            grid.SetCell((int)cellPos.X, (int)cellPos.Y, CellMembers.wall, 0.8f * colour);
+            grid.SetCell((int)cellPos.X, (int)cellPos.Y, CellMembers.wall, 0.4f * colour);
             cellPos += speed;
             grid.SetCell((int)cellPos.X, (int)cellPos.Y, CellMembers.bike, colour);
         }
