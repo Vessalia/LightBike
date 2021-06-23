@@ -15,7 +15,6 @@ C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\runtime
 C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\soft_oal.dll
 C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\SDL2.dll
 C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\soft_oal.dll
-C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.csprojAssemblyReference.cache
 C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.AssemblyInfoInputs.cache
 C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.AssemblyInfo.cs
 C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.csproj.CoreCompileInputs.cache
@@ -24,3 +23,4 @@ C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBi
 C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.pdb
 C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.genruntimeconfig.cache
 C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\Content\Arial32.xnb
+C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.csproj.AssemblyReference.cache

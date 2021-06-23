@@ -51,15 +51,17 @@ namespace LightBike.Src
         {
             int cellLen = GetCellLen();
 
+            var borderPos = Constants.GridToScreenCoords(new Vector2(0, 0), cellNum);
+
+            sb.DrawRectangle(borderPos.X, borderPos.Y, cellLen * cellNum, cellLen * cellNum, Color.White);
+
             for (int i = 0; i < cellNum; i++)
             {
                 for (int j = 0; j < cellNum; j++)
                 {
                     var screenPos = Constants.GridToScreenCoords(new Vector2(i, j), cellNum);
 
-                    Color colour = Color.White;
-
-                    sb.DrawRectangle(screenPos.X, screenPos.Y, cellLen, cellLen, colour);
+                    //sb.DrawRectangle(screenPos.X, screenPos.Y, cellLen, cellLen, Color.White);
 
                     sb.FillRectangle(screenPos.X, screenPos.Y, cellLen, cellLen, colours[i, j]);
                 }
@@ -77,6 +79,11 @@ namespace LightBike.Src
             {
 
             }
+        }
+
+        public CellMembers GetCell(int i, int j)
+        {
+            return gridValues[i, j];
         }
 
         public int GetCellLen()

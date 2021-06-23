@@ -43,10 +43,11 @@ namespace LightBike.Src
         {
             menu.DrawButtons(sb, font);
 
-            var text = "Light Bike";
+            var text = "Tron";
             var textSize = font.MeasureString(text);
 
-            sb.DrawString(font, text, new Vector2(Constants.Screen.X / 2, 200) - textSize / 2, Color.OrangeRed);
+            sb.DrawString(font, text, new Vector2(Constants.Screen.X / 2 + 2, 200 + 1.5f) - textSize / 2, Color.HotPink);
+            sb.DrawString(font, text, new Vector2(Constants.Screen.X / 2 - 2, 200 - 1.5f) - textSize / 2, Color.Cyan);
         }
     }
 }

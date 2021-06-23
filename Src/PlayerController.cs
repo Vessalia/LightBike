@@ -7,18 +7,16 @@ namespace LightBike.Src
 {
     class PlayerController : Controller
     {
-        private int dir;
         private IInput input;
 
         public PlayerController(Bike bike, IInput input) : base(bike)
         {
             this.input = input;
-
-            dir = 0;
         }
 
         public override void HandleInput()
         {
+            var dir = 0;
             if (input.IsKeyJustPressed(Keys.Left)) dir -= 1;
             if (input.IsKeyJustPressed(Keys.Right)) dir += 1;
             bike.RotateBike(dir);
