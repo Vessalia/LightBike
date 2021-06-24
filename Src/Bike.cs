@@ -11,20 +11,15 @@ namespace LightBike.Src
     {
         public Vector2 CellPos { get; private set; }
 
-        public Vector2 Speed { get; private set; }
+        public Vector2 Speed { get; set; }
 
         private Color colour;
-
-        private float initialAngle;
 
         public Bike(Vector2 cellPos, Color colour, Vector2 speed)
         {
             this.CellPos = cellPos;
             this.Speed = speed;
             this.colour = colour;
-
-
-            initialAngle = Speed.ToAngle() - MathF.PI / 2;
         }
 
         public void Update(Grid grid)
@@ -38,6 +33,11 @@ namespace LightBike.Src
         {
             Speed = Speed.Rotate(dir * MathF.PI / 2);
             Speed = new Vector2((int)Speed.X, (int)Speed.Y);
+        }
+
+        public Color GetColour()
+        {
+            return colour;
         }
     }
 }

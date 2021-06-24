@@ -17,7 +17,7 @@ namespace LightBike.Src
         }
 
         public abstract void HandleInput();
-        public abstract void Update();
+        public abstract void Update(float timeStep);
         public abstract void DrawToScreen(SpriteBatch sb, SpriteFont font);
     }
 }

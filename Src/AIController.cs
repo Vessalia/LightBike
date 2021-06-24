@@ -17,19 +17,33 @@ namespace LightBike.Src
         
         public override void HandleInput()
         {
+            bool isScrewed = true;
+
             var dirs = new List<int>();
 
             if (IsAdjactentCellEmpty(bike, grid, -1))
             {
                 dirs.Add(-1);
+
+                isScrewed = false;
             }
             if (IsAdjactentCellEmpty(bike, grid, 0))
             {
                 dirs.Add(0);
+
+                isScrewed = false;
             }
             if (IsAdjactentCellEmpty(bike, grid, 1))
             {
                 dirs.Add(1);
+
+                isScrewed = false;
+            }
+            if (isScrewed)
+            {
+                bike.Speed = new Vector2(0, 0);
+                grid.KillBike(bike.GetColour());
+                BikeKilled(bike);
             }
 
             if (dirs.Count > 0)
@@ -54,6 +68,15 @@ namespace LightBike.Src
 
             var member = grid.GetCell((int)checkCell.X, (int)checkCell.Y);
             return member == CellMembers.empty;
+        }
+
+        public bool BikeKilled(Bike bike)
+        {
+            if (bike.Speed == new Vector2(0, 0))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -37,7 +37,7 @@ namespace LightBike.Src
             menu.HandleButtonInput();
         }
 
-        public override void Update() { }
+        public override void Update(float timeStep) { }
 
         public override void DrawToScreen(SpriteBatch sb, SpriteFont font)
         {

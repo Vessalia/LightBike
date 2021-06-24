@@ -96,5 +96,20 @@ namespace LightBike.Src
         {
             return cellNum;
         }
+
+        public void KillBike(Color colour)
+        {
+            for(int i = 0; i < cellNum; i++)
+            {
+                for (int j = 0; j < cellNum; j++)
+                {
+                    if (colours[i, j] == colour || colours[i, j] == 0.4f * colour)
+                    {
+                        colours[i, j] = Color.Transparent;
+                        gridValues[i, j] = CellMembers.empty;
+                    }
+                }
+            }
+        }
     }
 }

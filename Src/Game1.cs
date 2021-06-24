@@ -48,6 +48,8 @@ namespace LightBike.Src
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            var dt = (float)gameTime.ElapsedGameTime.TotalSeconds;
+
             input.Update();
             
             gameState.HandleInput();
@@ -58,7 +60,7 @@ namespace LightBike.Src
                 return;
             }
 
-            gameState.Update();
+            gameState.Update(dt);
 
             base.Update(gameTime);
         }

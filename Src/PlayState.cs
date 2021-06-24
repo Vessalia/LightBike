@@ -21,6 +21,7 @@ namespace LightBike.Src
         private bool aiIndicator;
 
         private int counter;
+        private float timer;
 
         public PlayState(IGameStateSwitcher switcher, Input input) : base(switcher, input)
         {
@@ -33,9 +34,9 @@ namespace LightBike.Src
 
             enemies = new List<Bike>();
 
-            Bike redEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(205, 50, 50), new Vector2(-1, 0));
+            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1));
             Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1));
-            Bike greenEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(50, 150, 50), new Vector2(0, 1));
+            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0));
 
             AddEnemies(redEnemy);
             AddEnemies(yellowEnemy);
@@ -46,6 +47,7 @@ namespace LightBike.Src
             indicator = true;
             aiIndicator = true;
             counter = 0;
+            timer = 5;
         }
 
         public override void HandleInput()
@@ -68,8 +70,20 @@ namespace LightBike.Src
             }
         }
 
-        public override void Update()
+        public override void Update(float timeStep)
         {
+            if (enemies.Count == 0)
+            {
+                if (timer >= 0)
+                {
+                    timer -= timeStep;
+                }
+                else
+                {
+                    switcher.SetNextState(new MainMenuState(switcher, input));
+                }
+                return;
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 switcher.SetNextState(new PauseState(switcher, input, this));
@@ -79,9 +93,27 @@ namespace LightBike.Src
             {
                 player.Update(grid);
 
+                int i = 0;
+
+                var bikesToDelete = new List<Bike>();
+
                 foreach (var b in enemies)
                 {
-                    b.Update(grid);
+                    if (aiControllers[i].BikeKilled(b) == true)
+                    {
+                        bikesToDelete.Add(b);
+                        aiControllers.Remove(aiControllers[i]);
+                    }
+                    else
+                    {
+                        b.Update(grid);
+                        i++;
+                    }
+                }
+
+                for(int j = 0; j < bikesToDelete.Count; j++)
+                {
+                    enemies.Remove(bikesToDelete[j]);
                 }
 
                 counter = 0;
