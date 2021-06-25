@@ -15,11 +15,19 @@ namespace LightBike.Src
 
         private Color colour;
 
-        public Bike(Vector2 cellPos, Color colour, Vector2 speed)
+        private Controller controller;
+
+        public Bike(Vector2 cellPos, Color colour, Vector2 speed, Controller controller)
         {
             this.CellPos = cellPos;
             this.Speed = speed;
             this.colour = colour;
+            this.controller = controller;
+        }
+
+        public void HandleInput(Grid grid)
+        {
+            controller.HandleInput(this, grid);
         }
 
         public void Update(Grid grid)
@@ -27,6 +35,7 @@ namespace LightBike.Src
             grid.SetCell((int)CellPos.X, (int)CellPos.Y, CellMembers.wall, 0.4f * colour);
             CellPos += Speed;
             grid.SetCell((int)CellPos.X, (int)CellPos.Y, CellMembers.bike, colour);
+            controller.ResetIndicator();
         }
 
         public void RotateBike(int dir)
@@ -38,6 +47,11 @@ namespace LightBike.Src
         public Color GetColour()
         {
             return colour;
+        }
+
+        public bool IsBikeKilled()
+        {
+            return Speed == Vector2.Zero;
         }
     }
 }

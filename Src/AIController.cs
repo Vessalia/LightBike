@@ -8,14 +8,7 @@ namespace LightBike.Src
 {
     class AIController : Controller
     {
-        private Grid grid;
-
-        public AIController(Bike bike, Grid grid) : base(bike)
-        {
-            this.grid = grid;
-        }
-        
-        public override void HandleInput()
+        protected override void DoInput(Bike bike, Grid grid)
         {
             bool isScrewed = true;
 
@@ -41,9 +34,8 @@ namespace LightBike.Src
             }
             if (isScrewed)
             {
-                bike.Speed = new Vector2(0, 0);
+                bike.Speed = Vector2.Zero;
                 grid.KillBike(bike.GetColour());
-                BikeKilled(bike);
             }
 
             if (dirs.Count > 0)
@@ -54,7 +46,7 @@ namespace LightBike.Src
             }
         }
 
-        public bool IsAdjactentCellEmpty(Bike bike, Grid grid, int dir)
+        private bool IsAdjactentCellEmpty(Bike bike, Grid grid, int dir)
         {
             var checkDist = bike.Speed.Rotate(dir * MathF.PI / 2);
             checkDist = new Vector2((int)checkDist.X, (int)checkDist.Y);
@@ -68,15 +60,6 @@ namespace LightBike.Src
 
             var member = grid.GetCell((int)checkCell.X, (int)checkCell.Y);
             return member == CellMembers.empty;
-        }
-
-        public bool BikeKilled(Bike bike)
-        {
-            if (bike.Speed == new Vector2(0, 0))
-            {
-                return true;
-            }
-            return false;
         }
     }
 }

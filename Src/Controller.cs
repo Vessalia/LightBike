@@ -6,13 +6,22 @@ namespace LightBike.Src
 {
     public abstract class Controller
     {
-        protected Bike bike;
+        private bool indicator = true;
 
-        public Controller(Bike bike)
+        public virtual void HandleInput(Bike bike, Grid grid)
         {
-            this.bike = bike;
+            if (indicator)
+            {
+                DoInput(bike, grid);
+                indicator = false;
+            }
         }
 
-        public abstract void HandleInput();
+        public void ResetIndicator()
+        {
+            indicator = true;
+        }
+
+        protected abstract void DoInput(Bike bike, Grid grid);
     }
 }

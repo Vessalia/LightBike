@@ -9,12 +9,20 @@ namespace LightBike.Src
     {
         private IInput input;
 
-        public PlayerController(Bike bike, IInput input) : base(bike)
+        public PlayerController(IInput input)
         {
             this.input = input;
         }
 
-        public override void HandleInput()
+        public override void HandleInput(Bike bike, Grid grid)
+        {
+            if(input.IsKeyJustPressed(Keys.Left) || input.IsKeyJustPressed(Keys.Right))
+            {
+                base.HandleInput(bike, grid);
+            }
+        }
+
+        protected override void DoInput(Bike bike, Grid grid)
         {
             var dir = 0;
             if (input.IsKeyJustPressed(Keys.Left)) dir -= 1;

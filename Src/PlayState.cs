@@ -9,16 +9,10 @@ namespace LightBike.Src
 {
     class PlayState : GameState
     {
-        private PlayerController playerController;
-        private List<AIController> aiControllers;
-
+        private List<Bike> bikes;
         private Bike player;
-        private List<Bike> enemies;
 
         private Grid grid;
-
-        private bool indicator;
-        private bool aiIndicator;
 
         private int counter;
         private float timer;
@@ -28,51 +22,34 @@ namespace LightBike.Src
             int cellNum = 32;
             grid = new Grid(cellNum);
 
-            player = new Bike(new Vector2(cellNum, cellNum) / 4, new Color(20, 120, 185), new Vector2(1, 0));
+            player = new Bike(new Vector2(cellNum, cellNum) / 4, new Color(20, 120, 185), new Vector2(1, 0), new PlayerController(input));
 
-            aiControllers = new List<AIController>();
+            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AIController());
+            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new AIController());
+            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new AIController());
 
-            enemies = new List<Bike>();
+            bikes = new List<Bike>();
 
-            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1));
-            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1));
-            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0));
+            bikes.Add(player);
+            bikes.Add(redEnemy);
+            bikes.Add(yellowEnemy);
+            bikes.Add(greenEnemy);
 
-            AddEnemies(redEnemy);
-            AddEnemies(yellowEnemy);
-            AddEnemies(greenEnemy);
-
-            playerController = new PlayerController(player, input);
-
-            indicator = true;
-            aiIndicator = true;
             counter = 0;
             timer = 5;
         }
 
         public override void HandleInput()
         {
-            if (indicator && (input.IsKeyJustPressed(Keys.Left) || input.IsKeyJustPressed(Keys.Right)))
+            foreach (var b in bikes)
             {
-                playerController.HandleInput();
-
-                indicator = false;
-            }
-
-            if (aiIndicator)
-            {
-                foreach (var c in aiControllers)
-                {
-                    c.HandleInput();
-                }
-
-                aiIndicator = false;
+                b.HandleInput(grid);
             }
         }
 
         public override void Update(float timeStep)
         {
-            if (enemies.Count == 0)
+            if (bikes.Count == 1)
             {
                 if (timer >= 0)
                 {
@@ -91,34 +68,26 @@ namespace LightBike.Src
 
             if (counter > 4)
             {
-                player.Update(grid);
-
-                int i = 0;
-
                 var bikesToDelete = new List<Bike>();
 
-                foreach (var b in enemies)
+                foreach (var b in bikes)
                 {
-                    if (aiControllers[i].BikeKilled(b) == true)
+                    if (b.IsBikeKilled())
                     {
                         bikesToDelete.Add(b);
-                        aiControllers.Remove(aiControllers[i]);
                     }
                     else
                     {
                         b.Update(grid);
-                        i++;
                     }
                 }
 
-                for(int j = 0; j < bikesToDelete.Count; j++)
+                foreach (var b in bikesToDelete)
                 {
-                    enemies.Remove(bikesToDelete[j]);
+                    bikes.Remove(b);
                 }
 
                 counter = 0;
-                indicator = true;
-                aiIndicator = true;
             }
             else
             {
@@ -129,12 +98,6 @@ namespace LightBike.Src
         public override void DrawToScreen(SpriteBatch sb, SpriteFont font)
         {
             grid.DrawGrid(sb);
-        }
-
-        private void AddEnemies(Bike bike)
-        {
-            enemies.Add(bike);
-            aiControllers.Add(new AIController(bike, grid));
         }
     }
 }
