@@ -10,16 +10,16 @@ namespace LightBike.Src
 {
     public class Button
     {
+        private bool wasPressed;
+
         private Vector2 textSize;
         private Vector2 pos;
 
-        private bool wasPressed;
-
         private Color colour;
 
-        private readonly string text;
-
         private Action action;
+
+        private readonly string text;
 
         public Button(Vector2 pos, Color colour, string text, Action action)
         {
@@ -42,12 +42,7 @@ namespace LightBike.Src
 
         public bool MouseButtonCheck()
         {
-            if (RectangleF.Contains(new RectangleF(pos - textSize / 2, textSize), Mouse.GetState().Position))
-            {
-                return true;
-            }
-
-            return false;
+            return RectangleF.Contains(new RectangleF(pos - textSize / 2, textSize), Mouse.GetState().Position) == true;
         }
 
         public void OnRelease()
@@ -63,11 +58,6 @@ namespace LightBike.Src
         public void SetPressed(bool wasPressed)
         {
             this.wasPressed = wasPressed;
-        }
-
-        public Color GetColour()
-        {
-            return colour;
         }
 
         public void SetColour(Color colour)

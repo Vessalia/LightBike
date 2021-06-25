@@ -15,11 +15,12 @@ namespace LightBike.Src
         private Grid grid;
 
         private int counter;
-        private float timer;
+        private float startTimer;
+        private float endTimer;
 
         public PlayState(IGameStateSwitcher switcher, Input input) : base(switcher, input)
         {
-            int cellNum = 32;
+            int cellNum = 64;
             grid = new Grid(cellNum);
 
             player = new Bike(new Vector2(cellNum, cellNum) / 4, new Color(20, 120, 185), new Vector2(1, 0), new PlayerController(input));
@@ -36,7 +37,8 @@ namespace LightBike.Src
             bikes.Add(greenEnemy);
 
             counter = 0;
-            timer = 5;
+            startTimer = 4;
+            endTimer = 3;
         }
 
         public override void HandleInput()
@@ -51,9 +53,9 @@ namespace LightBike.Src
         {
             if (bikes.Count == 1)
             {
-                if (timer >= 0)
+                if (endTimer >= 0)
                 {
-                    timer -= timeStep;
+                    endTimer -= timeStep;
                 }
                 else
                 {
@@ -61,12 +63,22 @@ namespace LightBike.Src
                 }
                 return;
             }
+
+            if (startTimer >= 0)
+            {
+                startTimer -= timeStep;
+                if (startTimer >= 1)
+                {
+                    return;
+                }
+            }
+
             if (Keyboard.GetState().IsKeyDown(Keys.Enter))
             {
                 switcher.SetNextState(new PauseState(switcher, input, this));
             }
 
-            if (counter > 4)
+            if (counter > 2)
             {
                 var bikesToDelete = new List<Bike>();
 
@@ -98,6 +110,29 @@ namespace LightBike.Src
         public override void DrawToScreen(SpriteBatch sb, SpriteFont font)
         {
             grid.DrawGrid(sb);
+
+            if (startTimer >= 1)
+            {
+                var text = $"{(int)startTimer}";
+                var textSize = font.MeasureString(text);
+
+                sb.DrawString(font, text, Constants.Screen / 2 - textSize / 2, Color.Purple);
+            }
+            else if (startTimer >= 0)
+            {
+                var text = "GO";
+                var textSize = font.MeasureString(text);
+
+                sb.DrawString(font, text, Constants.Screen / 2 - textSize / 2, Color.Purple);
+            }
+            if (bikes.Count == 1)
+            {
+                var text = "YOU FUCKING WIN YOU FUCKING WINNER ASS BITCH";
+                var textSize = font.MeasureString(text);
+
+                sb.DrawString(font, text, Constants.Screen / 2 - textSize / 2, Color.Purple);
+                return;
+            }
         }
     }
 }
