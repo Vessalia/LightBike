@@ -3,12 +3,14 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace LightBike.Src
 {
     class PlayState : GameState
     {
+        private List<Bike> bikes;
         private List<Bike> activeBikes;
         private List<Bike> inactiveBikes;
         private Bike player;
@@ -35,13 +37,14 @@ namespace LightBike.Src
             Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new AIController());
             Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new AIController());
 
-            activeBikes = new List<Bike>();
-            inactiveBikes = new List<Bike>();
+            bikes = new List<Bike>();
+            bikes.Add(player);
+            bikes.Add(redEnemy);
+            bikes.Add(yellowEnemy);
+            bikes.Add(greenEnemy);
 
-            activeBikes.Add(player);
-            activeBikes.Add(redEnemy);
-            activeBikes.Add(yellowEnemy);
-            activeBikes.Add(greenEnemy);
+            activeBikes = bikes.Where(a => true).ToList();
+            inactiveBikes = new List<Bike>();
 
             maxScore = 3;
 
@@ -155,6 +158,7 @@ namespace LightBike.Src
 
                 sb.DrawString(font, text, Constants.Screen / 2 - textSize / 2, Color.Purple);
             }
+
             if (player.GetScore() == maxScore)
             {
                 var text = "YOU FUCKING WIN YOU FUCKING WINNER ASS BITCH";
@@ -170,6 +174,20 @@ namespace LightBike.Src
 
                 sb.DrawString(font, text, Constants.Screen / 2 - textSize / 2, Color.Purple);
                 return;
+            }
+
+            foreach (var b in bikes)
+            {
+                var coords = Constants.GridToScreenCoords(b.GetInitialCellPos(), cellNum);
+
+                var dirVec = coords - Constants.Screen / 2;
+                dirVec.X *= 1.25f;
+                dirVec.Y *= 0.75f;
+
+                var text = $"{(int)b.GetScore()}";
+                var textSize = font.MeasureString(text);
+
+                sb.DrawString(fonts["score"], text, coords + dirVec, b.GetColour());
             }
         }
 

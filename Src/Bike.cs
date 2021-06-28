@@ -80,5 +80,10 @@ namespace LightBike.Src
             CellPos = initialCellPos;
             Speed = initialSpeed;
         }
+
+        public Vector2 GetInitialCellPos()
+        {
+            return initialCellPos;
+        }
     }
 }
