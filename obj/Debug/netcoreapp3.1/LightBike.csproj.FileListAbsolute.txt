@@ -24,3 +24,5 @@ C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBi
 C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.genruntimeconfig.cache
 C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\Content\Arial32.xnb
 C:\Users\Nathan\source\repos\LightBike\LightBike\obj\Debug\netcoreapp3.1\LightBike.csproj.AssemblyReference.cache
+C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\Content\ScoreFont.xnb
+C:\Users\Nathan\source\repos\LightBike\LightBike\bin\Debug\netcoreapp3.1\Content\TitleFont.xnb

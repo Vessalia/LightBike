@@ -135,9 +135,11 @@ namespace LightBike.Src
             }
         }
 
-        public override void DrawToScreen(SpriteBatch sb, SpriteFont font)
+        public override void DrawToScreen(SpriteBatch sb, Dictionary<string, SpriteFont> fonts)
         {
             grid.DrawGrid(sb);
+
+            var font = fonts["default"];
 
             if (startTimer >= 1 && !isGameOver)
             {

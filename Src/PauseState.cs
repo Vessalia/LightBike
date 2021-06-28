@@ -52,9 +52,11 @@ namespace LightBike.Src
 
         public override void Update(float timeStep) { }
         
-        public override void DrawToScreen(SpriteBatch sb, SpriteFont font)
+        public override void DrawToScreen(SpriteBatch sb, Dictionary<string, SpriteFont> fonts)
         {
-            gameState.DrawToScreen(sb, font);
+            var font = fonts["default"];
+
+            gameState.DrawToScreen(sb, fonts);
 
             sb.FillRectangle(new Vector2(0, 0), Constants.Screen, new Color(Color.Black, 0.84f));
 

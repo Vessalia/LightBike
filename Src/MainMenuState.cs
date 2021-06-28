@@ -39,15 +39,15 @@ namespace LightBike.Src
 
         public override void Update(float timeStep) { }
 
-        public override void DrawToScreen(SpriteBatch sb, SpriteFont font)
+        public override void DrawToScreen(SpriteBatch sb, Dictionary<string, SpriteFont> fonts)
         {
-            menu.DrawButtons(sb, font);
+            menu.DrawButtons(sb, fonts["default"]);
 
             var text = "Tron";
-            var textSize = font.MeasureString(text);
+            var textSize = fonts["title"].MeasureString(text);
 
-            sb.DrawString(font, text, new Vector2(Constants.Screen.X / 2 + 2, 200 + 1.5f) - textSize / 2, Color.HotPink);
-            sb.DrawString(font, text, new Vector2(Constants.Screen.X / 2 - 2, 200 - 1.5f) - textSize / 2, Color.Cyan);
+            sb.DrawString(fonts["title"], text, new Vector2(Constants.Screen.X / 2 + 3, 200 + 2f) - textSize / 2, Color.HotPink);
+            sb.DrawString(fonts["title"], text, new Vector2(Constants.Screen.X / 2 - 3, 200 - 2f) - textSize / 2, Color.Cyan);
         }
     }
 }

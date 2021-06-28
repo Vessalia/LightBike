@@ -5,8 +5,12 @@
   <Config />
   <SourceFiles>
     <File>C:/Users/Nathan/source/repos/LightBike/LightBike/Content/Arial32.spritefont</File>
+    <File>C:/Users/Nathan/source/repos/LightBike/LightBike/Content/ScoreFont.spritefont</File>
+    <File>C:/Users/Nathan/source/repos/LightBike/LightBike/Content/TitleFont.spritefont</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>
 </SourceFileCollection>

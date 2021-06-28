@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using MonoGame.Extended;
 using System;
+using System.Collections.Generic;
 
 namespace LightBike.Src
 {
@@ -10,7 +11,7 @@ namespace LightBike.Src
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private SpriteFont font1;
+        private Dictionary<string, SpriteFont> fonts;
 
         private GameState gameState;
 
@@ -40,7 +41,10 @@ namespace LightBike.Src
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            font1 = Content.Load<SpriteFont>("Arial32");
+            fonts = new Dictionary<string, SpriteFont>();
+            fonts["default"] = Content.Load<SpriteFont>("Arial32");
+            fonts["title"] = Content.Load<SpriteFont>("TitleFont");
+            fonts["score"] = Content.Load<SpriteFont>("ScoreFont");
         }
 
         protected override void Update(GameTime gameTime)
@@ -68,7 +72,7 @@ namespace LightBike.Src
 
             _spriteBatch.Begin();
             
-            gameState.DrawToScreen(_spriteBatch, font1);
+            gameState.DrawToScreen(_spriteBatch, fonts);
 
             _spriteBatch.End();
 

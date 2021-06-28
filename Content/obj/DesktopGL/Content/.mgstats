@@ -1,2 +1,4 @@
 Source File,Dest File,Processor Type,Content Type,Source File Size,Dest File Size,Build Seconds
 "C:/Users/Nathan/source/repos/LightBike/LightBike/Content/Arial32.spritefont","C:/Users/Nathan/source/repos/LightBike/LightBike/Content/bin/DesktopGL/Content/Arial32.xnb","FontDescriptionProcessor","SpriteFontContent",2008,70690,0.2263906
+"C:/Users/Nathan/source/repos/LightBike/LightBike/Content/ScoreFont.spritefont","C:/Users/Nathan/source/repos/LightBike/LightBike/Content/bin/DesktopGL/Content/ScoreFont.xnb","FontDescriptionProcessor","SpriteFontContent",2008,21538,0.1956825
+"C:/Users/Nathan/source/repos/LightBike/LightBike/Content/TitleFont.spritefont","C:/Users/Nathan/source/repos/LightBike/LightBike/Content/bin/DesktopGL/Content/TitleFont.xnb","FontDescriptionProcessor","SpriteFontContent",2008,267298,0.2346992
