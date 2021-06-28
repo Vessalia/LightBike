@@ -13,16 +13,27 @@ namespace LightBike.Src
 
         public Vector2 Speed { get; set; }
 
+        private Vector2 initialCellPos;
+        private Vector2 initialSpeed;
+
         private Color colour;
 
         private Controller controller;
 
+        private int score;
+
         public Bike(Vector2 cellPos, Color colour, Vector2 speed, Controller controller)
         {
-            this.CellPos = cellPos;
-            this.Speed = speed;
             this.colour = colour;
             this.controller = controller;
+
+            CellPos = cellPos;
+            Speed = speed;
+
+            score = 0;
+
+            initialCellPos = cellPos;
+            initialSpeed = speed;
         }
 
         public void HandleInput(Grid grid)
@@ -52,6 +63,22 @@ namespace LightBike.Src
         public bool IsBikeKilled()
         {
             return Speed == Vector2.Zero;
+        }
+
+        public void AddToScore(int point)
+        {
+            score += point;
+        }
+
+        public int GetScore()
+        {
+            return score;
+        }
+
+        public void ResetBike()
+        {
+            CellPos = initialCellPos;
+            Speed = initialSpeed;
         }
     }
 }

@@ -10,19 +10,20 @@ namespace LightBike.Src
     class PauseState : GameState
     {
         private Menu menu;
-        private PlayState playState;
 
-        public PauseState(IGameStateSwitcher switcher, Input input, PlayState playState) : base(switcher, input)
+        private GameState gameState;
+
+        public PauseState(IGameStateSwitcher switcher, Input input, GameState gameState) : base(switcher, input)
         {
             menu = new Menu();
 
-            this.playState = playState;
+            this.gameState = gameState;
 
             var resumePos = Constants.Screen / 2;
 
             Action resumeAction = () =>
             {
-                switcher.SetNextState(playState);
+                switcher.SetNextState(gameState);
             };
 
             var menuPos = Constants.Screen / 2 + new Vector2(0, 100);
@@ -53,7 +54,7 @@ namespace LightBike.Src
         
         public override void DrawToScreen(SpriteBatch sb, SpriteFont font)
         {
-            playState.DrawToScreen(sb, font);
+            gameState.DrawToScreen(sb, font);
 
             sb.FillRectangle(new Vector2(0, 0), Constants.Screen, new Color(Color.Black, 0.84f));
 
