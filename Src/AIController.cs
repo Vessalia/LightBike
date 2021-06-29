@@ -8,34 +8,43 @@ namespace LightBike.Src
 {
     class AIController : Controller
     {
+        private int counter = 0;
+
+        private int counterThreshold = 0;
+
+        public AIController(int counterThreshold)
+        {
+            this.counterThreshold = counterThreshold;
+        }
+
         protected override void DoInput(Bike bike, Grid grid)
         {
-            bool isScrewed = true;
-
             var dirs = new List<int>();
 
+            if (IsAdjactentCellEmpty(bike, grid, 0))
+            {
+                counter++;
+                if (counter < counterThreshold)
+                {
+                    return;
+                }
+                else
+                {
+                    counter = 0;
+                    dirs.Add(0);
+                }
+            }
+            else
+            {
+                counter = 0;
+            }
             if (IsAdjactentCellEmpty(bike, grid, -1))
             {
                 dirs.Add(-1);
-
-                isScrewed = false;
-            }
-            if (IsAdjactentCellEmpty(bike, grid, 0))
-            {
-                dirs.Add(0);
-
-                isScrewed = false;
             }
             if (IsAdjactentCellEmpty(bike, grid, 1))
             {
                 dirs.Add(1);
-
-                isScrewed = false;
-            }
-            if (isScrewed)
-            {
-                bike.Speed = Vector2.Zero;
-                grid.KillBike(bike.GetColour());
             }
 
             if (dirs.Count > 0)
@@ -49,7 +58,7 @@ namespace LightBike.Src
         private bool IsAdjactentCellEmpty(Bike bike, Grid grid, int dir)
         {
             var checkDist = bike.Speed.Rotate(dir * MathF.PI / 2);
-            checkDist = new Vector2((int)checkDist.X, (int)checkDist.Y);
+            checkDist = new Vector2(MathF.Round(checkDist.X), MathF.Round(checkDist.Y));
 
             var checkCell = bike.CellPos + checkDist;
 

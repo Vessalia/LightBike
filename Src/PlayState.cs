@@ -27,21 +27,23 @@ namespace LightBike.Src
 
         public PlayState(IGameStateSwitcher switcher, Input input) : base(switcher, input)
         {
-            cellNum = 64;
+            cellNum = 128;
 
             grid = new Grid(cellNum);
 
             player = new Bike(new Vector2(cellNum, cellNum) / 4, new Color(20, 120, 185), new Vector2(1, 0), new PlayerController(input));
 
-            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AIController());
-            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new AIController());
-            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new AIController());
+            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AIController(16));
+            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new AIController(32));
+            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new AIController(64));
 
-            bikes = new List<Bike>();
-            bikes.Add(player);
-            bikes.Add(redEnemy);
-            bikes.Add(yellowEnemy);
-            bikes.Add(greenEnemy);
+            bikes = new List<Bike>
+            {
+                player,
+                redEnemy,
+                yellowEnemy,
+                greenEnemy
+            };
 
             activeBikes = bikes.Where(a => true).ToList();
             inactiveBikes = new List<Bike>();
@@ -181,8 +183,9 @@ namespace LightBike.Src
                 var coords = Constants.GridToScreenCoords(b.GetInitialCellPos(), cellNum);
 
                 var dirVec = coords - Constants.Screen / 2;
-                dirVec.X *= 1.25f;
-                dirVec.Y *= 0.75f;
+                dirVec.Normalize();
+                dirVec.X *= Constants.Screen.X / 20;
+                dirVec.Y *= Constants.Screen.Y / 4;
 
                 var text = $"{(int)b.GetScore()}";
                 var textSize = font.MeasureString(text);
