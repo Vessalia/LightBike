@@ -41,8 +41,8 @@ namespace LightBike.Src
             {
                 player,
                 redEnemy,
-                yellowEnemy,
-                greenEnemy
+                greenEnemy,
+                yellowEnemy
             };
 
             activeBikes = bikes.Where(a => true).ToList();
@@ -178,19 +178,21 @@ namespace LightBike.Src
                 return;
             }
 
+            float ang = 5 * MathF.PI / 4;
+
             foreach (var b in bikes)
             {
-                var coords = Constants.GridToScreenCoords(b.GetInitialCellPos(), cellNum);
-
-                var dirVec = coords - Constants.Screen / 2;
-                dirVec.Normalize();
-                dirVec.X *= Constants.Screen.X / 20;
-                dirVec.Y *= Constants.Screen.Y / 4;
-
                 var text = $"{(int)b.GetScore()}";
                 var textSize = font.MeasureString(text);
 
-                sb.DrawString(fonts["score"], text, coords + dirVec, b.GetColour());
+                var length = grid.GetCellLen() * grid.GetCellNum() / 2;
+
+                var vec = new Vector2(MathF.Cos(ang), MathF.Sin(ang)) * length + Constants.Screen / 2;
+
+                vec.Y = MathF.Max(MathF.Min(Constants.Screen.Y, vec.Y), 0);
+
+                sb.DrawString(fonts["score"], text, vec - textSize / 2, b.GetColour());
+                ang += MathF.PI / 2;
             }
         }
 
