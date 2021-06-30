@@ -18,7 +18,7 @@ namespace LightBike.Src
 
         private Color colour;
 
-        private Controller controller;
+        private readonly Controller controller;
 
         private int score;
 

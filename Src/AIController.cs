@@ -10,7 +10,7 @@ namespace LightBike.Src
     {
         private int counter = 0;
 
-        private int counterThreshold = 0;
+        private readonly int counterThreshold = 0;
 
         public AIController(int counterThreshold)
         {

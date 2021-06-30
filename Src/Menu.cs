@@ -9,7 +9,7 @@ namespace LightBike.Src
 {
     public class Menu
     {
-        private List<Button> buttons;
+        private readonly List<Button> buttons;
 
         public Menu()
         {

@@ -9,9 +9,9 @@ namespace LightBike.Src
 {
     class PauseState : GameState
     {
-        private Menu menu;
+        private readonly Menu menu;
 
-        private GameState gameState;
+        private readonly GameState gameState;
 
         public PauseState(IGameStateSwitcher switcher, Input input, GameState gameState) : base(switcher, input)
         {

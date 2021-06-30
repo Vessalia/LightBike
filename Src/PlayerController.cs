@@ -9,7 +9,7 @@ namespace LightBike.Src
 {
     class PlayerController : Controller
     {
-        private IInput input;
+        private readonly IInput input;
 
         public PlayerController(IInput input)
         {

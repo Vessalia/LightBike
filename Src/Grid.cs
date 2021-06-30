@@ -18,7 +18,7 @@ namespace LightBike.Src
 
         public Color[,] colours;
 
-        private int cellNum;
+        private readonly int cellNum;
 
         public Grid(int cellNum)
         {

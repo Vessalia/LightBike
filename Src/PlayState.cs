@@ -11,15 +11,15 @@ namespace LightBike.Src
 {
     class PlayState : GameState
     {
-        private List<Bike> bikes;
-        private List<Bike> activeBikes;
-        private List<Bike> inactiveBikes;
-        private Bike player;
+        private readonly List<Bike> bikes;
+        private readonly List<Bike> activeBikes;
+        private readonly List<Bike> inactiveBikes;
+        private readonly Bike player;
 
         private Grid grid;
-        private int cellNum;
+        private readonly int cellNum;
 
-        private int maxScore;
+        private readonly int maxScore;
         private int counter;
         private float startTimer;
         private float endTimer;

@@ -17,7 +17,7 @@ namespace LightBike.Src
 
         private Color colour;
 
-        private Action action;
+        private readonly Action action;
 
         private readonly string text;
 

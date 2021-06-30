@@ -9,7 +9,7 @@ namespace LightBike.Src
 {
     public class Game1 : Game, IGameStateSwitcher
     {
-        private GraphicsDeviceManager _graphics;
+        private readonly GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         private Dictionary<string, SpriteFont> fonts;
 
@@ -41,10 +41,12 @@ namespace LightBike.Src
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            fonts = new Dictionary<string, SpriteFont>();
-            fonts["default"] = Content.Load<SpriteFont>("Arial32");
-            fonts["title"] = Content.Load<SpriteFont>("TitleFont");
-            fonts["score"] = Content.Load<SpriteFont>("ScoreFont");
+            fonts = new Dictionary<string, SpriteFont>
+            {
+                ["default"] = Content.Load<SpriteFont>("Arial32"),
+                ["title"] = Content.Load<SpriteFont>("TitleFont"),
+                ["score"] = Content.Load<SpriteFont>("ScoreFont")
+            };
         }
 
         protected override void Update(GameTime gameTime)
