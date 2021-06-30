@@ -83,6 +83,10 @@ namespace LightBike.Src
 
         public CellMembers GetCell(int i, int j)
         {
+            if (i < 0 || j < 0 || i > cellNum - 1 || j > cellNum - 1)
+            {
+                return CellMembers.wall;
+            }
             return gridValues[i, j];
         }
 

@@ -20,7 +20,7 @@ namespace LightBike.Src
 
             float cellFloor = (float)minDim / cellNum - (int)MathF.Floor((float)minDim / cellNum);
 
-            gridPos.X = (Constants.Screen.X - Constants.Screen.Y) / 2 + gridIndicies.X * cellLen;
+            gridPos.X = cellFloor * cellNum / 2 + (Constants.Screen.X - Constants.Screen.Y) / 2 + gridIndicies.X * cellLen;
             gridPos.Y = cellFloor * cellNum / 2 + gridIndicies.Y * cellLen;
 
             return gridPos;

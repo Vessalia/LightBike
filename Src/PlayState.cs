@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using MonoGame.Extended;
 
 namespace LightBike.Src
 {
@@ -183,9 +184,9 @@ namespace LightBike.Src
             foreach (var b in bikes)
             {
                 var text = $"{(int)b.GetScore()}";
-                var textSize = font.MeasureString(text);
+                var textSize = fonts["score"].MeasureString(text);
 
-                var length = grid.GetCellLen() * grid.GetCellNum() / 2;
+                var length = MathF.Sqrt(MathF.Pow(grid.GetCellLen() * grid.GetCellNum(), 2) / 2) + grid.GetCellLen();
 
                 var vec = new Vector2(MathF.Cos(ang), MathF.Sin(ang)) * length + Constants.Screen / 2;
 
@@ -194,6 +195,9 @@ namespace LightBike.Src
                 sb.DrawString(fonts["score"], text, vec - textSize / 2, b.GetColour());
                 ang += MathF.PI / 2;
             }
+
+            sb.DrawLine(0, Constants.Screen.Y / 2, Constants.Screen.X, Constants.Screen.Y / 2, Color.White);
+            sb.DrawLine(Constants.Screen.X / 2, 0, Constants.Screen.X / 2, Constants.Screen.Y, Color.White);
         }
 
         public int AiBestScore()
