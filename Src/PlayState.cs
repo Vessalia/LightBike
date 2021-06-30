@@ -195,9 +195,6 @@ namespace LightBike.Src
                 sb.DrawString(fonts["score"], text, vec - textSize / 2, b.GetColour());
                 ang += MathF.PI / 2;
             }
-
-            sb.DrawLine(0, Constants.Screen.Y / 2, Constants.Screen.X, Constants.Screen.Y / 2, Color.White);
-            sb.DrawLine(Constants.Screen.X / 2, 0, Constants.Screen.X / 2, Constants.Screen.Y, Color.White);
         }
 
         public int AiBestScore()
