@@ -196,7 +196,7 @@ namespace LightBike.Src
                 ang += MathF.PI / 2;
             }
         }
-
+        
         public int AiBestScore()
         {
             int bestScore = 0;
