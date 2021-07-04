@@ -45,19 +45,8 @@ namespace LightBike.Src
         {
             grid.SetCell((int)CellPos.X, (int)CellPos.Y, CellMembers.wall, 0.4f * colour);
             
-            var nextPos = CellPos + Speed;
-            
-            if (grid.GetCell((int)nextPos.X, (int)nextPos.Y) != CellMembers.empty)
-            {
-                Speed = Vector2.Zero;
-                grid.KillBike(colour);
-            }
-            else
-            {
-                CellPos += Speed;
-                grid.SetCell((int)CellPos.X, (int)CellPos.Y, CellMembers.bike, colour);
-                controller.ResetIndicator();
-            }
+            CellPos += Speed;
+            controller.ResetIndicator();
         }
 
         public void RotateBike(int dir)
@@ -71,9 +60,17 @@ namespace LightBike.Src
             return colour;
         }
 
-        public bool IsBikeKilled()
+        public bool IsBikeKilled(Grid grid)
         {
-            return Speed == Vector2.Zero;
+            if (grid.GetCell((int)CellPos.X, (int)CellPos.Y) != CellMembers.empty)
+            {
+                grid.KillBike(colour);
+                return true;
+            }
+
+            grid.SetCell((int)CellPos.X, (int)CellPos.Y, CellMembers.bike, colour);
+
+            return false;
         }
 
         public void AddToScore(int point)

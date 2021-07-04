@@ -55,7 +55,7 @@ namespace LightBike.Src
 
             var result = goal;
 
-            while (cameFrom[result] != start)
+            while (cameFrom.ContainsKey(result) && cameFrom[result] != start)
             {
                 result = cameFrom[result];
             }

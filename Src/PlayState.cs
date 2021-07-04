@@ -34,19 +34,24 @@ namespace LightBike.Src
 
             player = new Bike(new Vector2(cellNum, cellNum) / 4, new Color(20, 120, 185), new Vector2(1, 0), new PlayerController(input));
 
-            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AIController());
-            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new AIController());
-            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new AIController());
+            activeBikes = new List<Bike>();
+
+            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AggroAIController(activeBikes));
+            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new StupidAIController(activeBikes));
+            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new PassiveAIController(activeBikes));
 
             bikes = new List<Bike>
             {
                 player,
                 redEnemy,
-                //greenEnemy,
-                //yellowEnemy
+                greenEnemy,
+                yellowEnemy
             };
 
-            activeBikes = bikes.Where(a => true).ToList();
+            foreach (var bike in bikes)
+            {
+                activeBikes.Add(bike);
+            }
             inactiveBikes = new List<Bike>();
 
             maxScore = 3;
@@ -97,17 +102,18 @@ namespace LightBike.Src
                 switcher.SetNextState(new PauseState(switcher, input, this));
             }
 
-            if (counter > 40)
+            if (counter > 2)
             {
                 foreach (var b in activeBikes)
                 {
-                    if (b.IsBikeKilled())
+                     b.Update(grid);
+                }
+
+                foreach (var b in activeBikes)
+                {
+                    if (b.IsBikeKilled(grid))
                     {
                         inactiveBikes.Add(b);
-                    }
-                    else
-                    {
-                        b.Update(grid);
                     }
                 }
 
