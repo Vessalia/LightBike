@@ -115,5 +115,34 @@ namespace LightBike.Src
                 }
             }
         }
+
+        public bool InBounds(Location id)
+        {
+            return 0 <= id.x && id.x < cellNum && 0 <= id.y && id.y < cellNum;
+        }
+
+        public List<Location> Neighbors(Location cell)
+        {
+            var neighbors = new List<Location>();
+
+            Location[] DIRS = new[]
+            {
+                new Location(1, 0),
+                new Location(0, -1),
+                new Location(-1, 0),
+                new Location(0, 1)
+            };
+
+            foreach (var dir in DIRS)
+            {
+                Location next = new Location(cell.x + dir.x, cell.y + dir.y);
+                if (InBounds(next) && gridValues[next.x, next.y] == CellMembers.empty)
+                {
+                    neighbors.Add(next);
+                }
+            }
+
+            return neighbors;
+        }
     }
 }

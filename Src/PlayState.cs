@@ -34,16 +34,16 @@ namespace LightBike.Src
 
             player = new Bike(new Vector2(cellNum, cellNum) / 4, new Color(20, 120, 185), new Vector2(1, 0), new PlayerController(input));
 
-            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AIController(16));
-            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new AIController(32));
-            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new AIController(64));
+            Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AIController());
+            Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new AIController());
+            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new AIController());
 
             bikes = new List<Bike>
             {
                 player,
                 redEnemy,
-                greenEnemy,
-                yellowEnemy
+                //greenEnemy,
+                //yellowEnemy
             };
 
             activeBikes = bikes.Where(a => true).ToList();
@@ -97,7 +97,7 @@ namespace LightBike.Src
                 switcher.SetNextState(new PauseState(switcher, input, this));
             }
 
-            if (counter > 2)
+            if (counter > 40)
             {
                 foreach (var b in activeBikes)
                 {
