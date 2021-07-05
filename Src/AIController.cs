@@ -20,11 +20,6 @@ namespace LightBike.Src
 
         protected async override void DoInput(Bike bike, Grid grid)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.LeftShift))
-            {
-                var x = 1;
-            }
-
             var bikes = activeBikes.Where(b => b != bike).ToList();
 
             var location = new Location((int)bike.CellPos.X, (int)bike.CellPos.Y);
