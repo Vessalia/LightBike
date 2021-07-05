@@ -35,8 +35,25 @@ namespace LightBike.Src
             {
                 var nextCell = new PathFinding(grid).GetNextCell(location, goal);
 
+                while (nextCell == goal)
+                {
+                    var randX = new Random().Next(0, grid.GetCellNum() - 1);
+                    var randY = new Random().Next(0, grid.GetCellNum() - 1);
+                    nextCell = new PathFinding(grid).GetNextCell(location, new Location(randX, randY));
+                }
+
                 var speed = new Vector2(nextCell.x - location.x, nextCell.y - location.y);
                 speed.Normalize();
+
+                speed.X = (int)MathF.Round(speed.X);
+                speed.Y = (int)MathF.Round(speed.Y);
+
+                if((int)MathF.Abs(speed.X) + (int)MathF.Abs(speed.Y) > 1)
+                {
+                    var picker = new Random().Next(0, 1);
+                    speed.Y *= picker;
+                    speed.X *= (int)MathF.Abs(speed.X) - (int)MathF.Abs(speed.Y);
+                }
 
                 bike.Speed = speed;
             });

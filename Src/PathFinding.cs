@@ -24,6 +24,11 @@ namespace LightBike.Src
             Dictionary<Location, Location> cameFrom = new Dictionary<Location, Location>();
             Dictionary<Location, float> costSoFar = new Dictionary<Location, float>();
 
+            return GetNextCell(start, goal, cameFrom, costSoFar);
+        }
+
+        private Location GetNextCell(Location start, Location goal, Dictionary<Location, Location> cameFrom, Dictionary<Location, float> costSoFar)
+        {
             var frontier = new PriorityQueue<Location>();
             frontier.Enqueue(start, 0);
 
@@ -34,7 +39,7 @@ namespace LightBike.Src
             {
                 var current = frontier.Dequeue();
 
-                if (current.Equals(goal))
+                if (current == goal)
                 {
                     break;
                 }

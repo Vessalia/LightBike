@@ -38,7 +38,7 @@ namespace LightBike.Src
 
             Bike redEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(cellNum, 0) / 2, new Color(205, 50, 50), new Vector2(0, 1), new AggroAIController(activeBikes));
             Bike yellowEnemy = new Bike(new Vector2(cellNum, cellNum) / 4 + new Vector2(0, cellNum) / 2, new Color(175, 190, 50), new Vector2(0, -1), new StupidAIController(activeBikes));
-            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new PassiveAIController(activeBikes));
+            Bike greenEnemy = new Bike(3 * new Vector2(cellNum, cellNum) / 4, new Color(50, 150, 50), new Vector2(-1, 0), new SmartAIController(activeBikes));
 
             bikes = new List<Bike>
             {
@@ -133,6 +133,20 @@ namespace LightBike.Src
             {
                 activeBikes[0].AddToScore(1);
 
+                foreach (var b in inactiveBikes)
+                {
+                    activeBikes.Add(b);
+                }
+
+                foreach (var b in activeBikes)
+                {
+                    inactiveBikes.Remove(b);
+                }
+
+                ResetGame();
+            }
+            else if (activeBikes.Count == 0)
+            {
                 foreach (var b in inactiveBikes)
                 {
                     activeBikes.Add(b);
