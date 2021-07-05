@@ -6,7 +6,7 @@ namespace LightBike.Src
 {
     class PathFinding
     {
-        private Grid grid;
+        private readonly Grid grid;
 
         static public float Heuristic(Location a, Location b)
         {
